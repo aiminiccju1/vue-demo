@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
+import tmpl from '@/view/tmpl'
 import First from '@/components/views/First'
 import Second from '@/components/views/Second'
-import tmpl from '@/view/tmpl'
 
 Vue.use(Router)
+
+const include = function (path) {
+  return () => import(`@/components/views/${path}`)
+}
 
 export default new Router({
   routes: [
@@ -17,12 +21,12 @@ export default new Router({
     {
       path: '/first',
       name: 'First',
-      component: First
+      component: include(First)
     },
     {
       path: '/second',
       name: 'Second',
-      component: Second
+      component: include(Second)
     },
     //  测试页面
     {
